@@ -4,6 +4,13 @@ const fetch = require("node-fetch");
 
 const app = express();
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
+
 const TEST_URL = "http://httpbin.org/ip";
 const TIMEOUT_MS = 10000;
 
